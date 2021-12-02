@@ -1,4 +1,4 @@
-# RECO FACE
+# RECKONFACE
 
 Simple face recognition app
 
