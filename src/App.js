@@ -1,8 +1,15 @@
+import Navigation from './components/Navigation';
+import Logo from './components/Logo';
 import './App.css';
 
 function App() {
   return (
-    <h1>Opa</h1>
+    <div className="App">
+      <Navigation />
+      <Logo />
+      {/* <ImageLinkForm />
+      <FaceRecognition /> */}
+    </div>
   );
 }
 

@@ -5,3 +5,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+body {
+  background: linear-gradient(89deg, #e670c0 0%, #4ff9fd 100%);
+}

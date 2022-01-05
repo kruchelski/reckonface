@@ -1,0 +1,21 @@
+.navigation-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 2rem;
+}
+
+.navigation-container__item {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--gray-2);
+    cursor: pointer;
+    transition: all 200ms;
+}
+
+.navigation-container__item:hover {
+    transform: scale(1.1);
+    opacity: 80%;
+    text-decoration: underline;
+}
+
