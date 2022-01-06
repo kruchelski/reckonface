@@ -1,0 +1,24 @@
+.logo-container {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    padding: 0 2rem;
+}
+
+.logo-container__content {
+    padding: 1rem;
+    border: 1px solid var(--gray-4);
+    border-radius: 0.75rem;
+    box-shadow: 0 0 10px var(--gray-3);
+    text-align: center;
+    vertical-align: middle;
+    font-size: 3rem;
+    background: linear-gradient(135deg, #ffffffaa, transparent);
+    backdrop-filter: blur(0.8);
+}
+
+.logo-container__image {
+    width: 150px;
+    height: 150px;
+    padding: 0.5rem;
+}   
