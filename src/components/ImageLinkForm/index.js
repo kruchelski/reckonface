@@ -12,7 +12,6 @@ function ImageLinkForm () {
                     className='input-container__input'
                 />
                 <button
-                    role='button'
                     type='button'
                     className='input-container__button'
                 >

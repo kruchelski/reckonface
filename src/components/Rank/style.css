@@ -1,0 +1,20 @@
+.rank-container {
+    box-sizing: border-box;
+    text-align: center;
+    padding: 2rem;
+}
+
+.rank__header {
+    color: var(--primary-dark);
+    text-align: center;
+    line-height: 2rem ;
+    font-size: 1.2rem;
+}
+
+.rank__number {
+    color: var(--primary-dark);
+    text-align: center;
+    line-height: 3rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+}

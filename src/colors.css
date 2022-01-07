@@ -6,6 +6,12 @@
     --gray-2: #333333;
     --gray-3: #454545;
     --gray-4: #666666;
+    --gray-5: #888888;
+    --gray-6: #ababab;
     
     --white: #ffffff;
+
+    --primary: #9754be;
+    --primary-light: #9e63c0;
+    --primary-dark: #5b3670;
 }

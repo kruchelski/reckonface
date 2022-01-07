@@ -7,7 +7,10 @@ function Logo () {
         <div className='logo-container'>
             <Tilt glareEnable={true} tiltMaxAngleX={15} tiltMaxAngleY={15}>
                 <div className='logo-container__content'>
-                    <img src={logo} alt='Brain image' className='logo-container__image'></img>
+                    <img
+                        src={logo}
+                        alt='Logo of Reckonface, a brain with electronic components'
+                        className='logo-container__image' />
                 </div>
             </Tilt>
         </div>
