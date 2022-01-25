@@ -1,0 +1,9 @@
+.image-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.image-detection {
+  max-width: 600px;
+}

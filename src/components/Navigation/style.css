@@ -3,6 +3,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 2rem;
+    box-sizing: border-box;
 }
 
 .navigation-container__item {

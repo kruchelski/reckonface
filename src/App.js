@@ -1,84 +1,47 @@
-import Navigation from './components/Navigation';
-import Logo from './components/Logo';
-import Rank from './components/Rank';
-import ImageLinkForm from './components/ImageLinkForm';
-import Particles from "react-tsparticles";
+import {
+  ImageLinkForm,
+  Logo,
+  Navigation,
+  Rank,
+  FaceRecognition,
+} from './components';
+import * as clarifaiService from './services/clarifaiService';
+import particlesOptions from './configs/particlesConfig';
+import { useState } from 'react';
+import Particles from 'react-tsparticles';
 import './App.css';
 
-
-const particlesOptions = {
-  fpsLimit: 60,
-  interactivity: {
-    events: {
-      onHover: {
-        enable: true,
-        mode: "repulse",
-      },
-      resize: true,
-    },
-    modes: {
-      repulse: {
-        distance: 100,
-        duration: 1,
-      },
-    },
-  },
-  particles: {
-    color: {
-      value: "#ffffff",
-    },
-    links: {
-      color: "#ffffff",
-      distance: 150,
-      enable: true,
-      opacity: 0.5,
-      width: 1,
-    },
-    collisions: {
-      enable: true,
-    },
-    move: {
-      direction: "none",
-      enable: true,
-      outMode: "bounce",
-      random: false,
-      speed: 1,
-      straight: false,
-    },
-    number: {
-      density: {
-        enable: true,
-        area: 800,
-      },
-      value: 80,
-    },
-    opacity: {
-      value: 0.5,
-    },
-    shape: {
-      type: "circle",
-    },
-    size: {
-      random: true,
-      value: 5,
-    },
-  },
-  detectRetina: true,
-}
-
 function App() {
+  const [input, setInput] = useState('');
+  const [imageUrl, setImageUrl] = useState('');
+
+  const handleInputChange = (value) => {
+    setInput(value);
+  };
+
+  const handleSubmit = async () => {
+    setImageUrl(input);
+    try {
+      const res = await clarifaiService.detectFace(input);
+      console.log('Opa deu certo');
+      console.log(res.outputs[0].data.regions[0].region_info.bounding_box);
+    } catch (error) {
+      console.log('Deu errado');
+      console.log(error);
+    }
+  };
+
   return (
     <div className="App">
-      <Particles
-        options={particlesOptions}
-        className='particles'
-      />
+      <Particles options={particlesOptions} className="particles" />
       <Navigation />
       <Logo />
       <Rank />
-      <ImageLinkForm />
-      {/* 
-      <FaceRecognition /> */}
+      <ImageLinkForm
+        onInputChange={handleInputChange}
+        onButtonSubmit={handleSubmit}
+      />
+      <FaceRecognition imageUrl={imageUrl} />
     </div>
   );
 }
