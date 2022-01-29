@@ -11,6 +11,7 @@ function ImageLinkForm({ onInputChange, onButtonSubmit }) {
         <input
           type="text"
           className="input-container__input"
+          placeholder="Paste an image url here..."
           onChange={(event) => {
             onInputChange(event.target.value);
           }}
