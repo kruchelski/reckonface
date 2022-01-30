@@ -2,39 +2,54 @@ import './style.css';
 
 const SignIn = () => {
   return (
-    <section className="sign-container">
+    <section className="sign">
       <form>
         <fieldset>
-          <legend>Sign In</legend>
-          <div>
-            <label for="email">Email</label>
+          <legend className="sign__title">Sign In</legend>
+          <div className="sign__input-container">
+            <label className="sign__label" for="email">
+              Email
+            </label>
             <input
               id="email"
+              className="sign__input"
               name="email"
               type="email"
               placeholder="Enter your email: email@example.com"
             />
           </div>
-          <div>
-            <label for="password">Password</label>
+          <div className="sign__input-container">
+            <label className="sign__label" for="password">
+              Password
+            </label>
             <input
               id="password"
+              className="sign__input"
               name="password"
               type="password"
               placeholder="Enter your email"
             />
           </div>
-          <label>
-            <input type="checkbox" id="remember-me" name="remember-me" />
-            Remember me
+          <label className="sign__checkbox-label">
+            <input
+              type="checkbox"
+              id="remember-me"
+              name="remember-me"
+              className="sign__checkbox"
+            />
+            <span>Remember me</span>
           </label>
         </fieldset>
-        <div>
-          <input type="submit" value="Sign in" />
+        <div className="sign__button-container">
+          <input className="sign__button" type="submit" value="Sign in" />
         </div>
-        <div>
-          <a href="#">Sign up</a>
-          <a href="#">Forgot your password?</a>
+        <div className="sign__links-container">
+          <a className="sign__link" href="#">
+            Sign up
+          </a>
+          <a className="sign__link" href="#">
+            Forgot your password?
+          </a>
         </div>
       </form>
     </section>
