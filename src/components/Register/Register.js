@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import './style.css';
 
-const SignIn = ({ onRouteChange }) => {
+const Register = ({ onRouteChange }) => {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [submited, setSubmited] = useState(false);
+
+  const validateName = (value = name) => {
+    const errors = {
+      required: 'Name is required',
+    };
+    let errorBuilder = '';
+    if (!value) {
+      errorBuilder += `${errors.required}\n`;
+    }
+    return errorBuilder;
+  };
 
   const validateEmail = (value = email) => {
     const errors = {
@@ -40,6 +53,14 @@ const SignIn = ({ onRouteChange }) => {
     return errorBuilder;
   };
 
+  const handleNameInput = (name) => {
+    name = name.trim();
+    setName(name);
+    if (!submited) return;
+    const nameError = validateName(name);
+    setNameError(nameError);
+  };
+
   const handleEmailInput = (email) => {
     email = email.trim();
     setEmail(email);
@@ -58,13 +79,16 @@ const SignIn = ({ onRouteChange }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmited(true);
+    setNameError('');
     setEmailError('');
     setPasswordError('');
+    const nameError = validateName();
+    setNameError(nameError);
     const emailError = validateEmail();
     setEmailError(emailError);
     const passwordError = validatePassword();
     setPasswordError(passwordError);
-    if (emailError || passwordError) return;
+    if (nameError || emailError || passwordError) return;
     onRouteChange(event.target, 'home');
   };
 
@@ -72,7 +96,23 @@ const SignIn = ({ onRouteChange }) => {
     <section className="sign">
       <form onSubmit={handleSubmit} noValidate>
         <fieldset>
-          <legend className="sign__title">Sign In</legend>
+          <legend className="sign__title">Register</legend>
+          <div className="sign__input-container">
+            <label className="sign__label" for="name">
+              Name
+            </label>
+            <input
+              id="name"
+              className={`sign__input ${
+                !!nameError ? 'sign__input--error' : ''
+              }`}
+              name="name"
+              type="text"
+              placeholder="Enter your name"
+              onInput={(event) => handleNameInput(event.target.value)}
+            />
+            <span className="sign__error">{nameError}</span>
+          </div>
           <div className="sign__input-container">
             <label className="sign__label" for="email">
               Email
@@ -106,15 +146,19 @@ const SignIn = ({ onRouteChange }) => {
             <span className="sign__error">{passwordError}</span>
           </div>
           <div className="sign__button-container">
-            <input className="sign__button" type="submit" value="Sign in" />
+            <input
+              className="sign__button"
+              type="submit"
+              value="Create account"
+            />
           </div>
         </fieldset>
         <div className="sign__links-container">
           <p
-            onClick={(event) => onRouteChange(event.target, 'register')}
+            onClick={(event) => onRouteChange(event.target, 'signin')}
             className="sign__link"
           >
-            Register
+            Have an account? Sign in!
           </p>
         </div>
       </form>
@@ -122,4 +166,4 @@ const SignIn = ({ onRouteChange }) => {
   );
 };
 
-export default SignIn;
+export default Register;

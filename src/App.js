@@ -5,6 +5,7 @@ import {
   Rank,
   FaceRecognition,
   SignIn,
+  Register,
 } from './components';
 import * as clarifaiService from './services/clarifaiService';
 import particlesOptions from './configs/particlesConfig';
@@ -16,6 +17,7 @@ function App() {
   const [input, setInput] = useState('');
   const [imageUrl, setImageUrl] = useState('');
   const [boxes, setBoxes] = useState([]);
+  const [route, setRoute] = useState('signin');
 
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#image');
@@ -60,18 +62,28 @@ function App() {
     }
   };
 
+  const handleRouteChange = (event, route) => {
+    console.log(event);
+    setRoute(route);
+  };
+
   return (
     <div className="App">
       <Particles options={particlesOptions} className="particles" />
-      <Navigation />
-      <SignIn />
-      <Logo />
-      <Rank />
-      <ImageLinkForm
-        onInputChange={handleInputChange}
-        onButtonSubmit={handleSubmit}
-      />
-      <FaceRecognition imageUrl={imageUrl} boxes={boxes} />
+      <Navigation onRouteChange={handleRouteChange} />
+      {route === 'signin' && <SignIn onRouteChange={handleRouteChange} />}
+      {route === 'register' && <Register onRouteChange={handleRouteChange} />}
+      {route === 'home' && (
+        <>
+          <Logo />
+          <Rank />
+          <ImageLinkForm
+            onInputChange={handleInputChange}
+            onButtonSubmit={handleSubmit}
+          />
+          <FaceRecognition imageUrl={imageUrl} boxes={boxes} />
+        </>
+      )}
     </div>
   );
 }

@@ -1,17 +1,19 @@
 * {
-    --black: #000000;
+  --black: #000000;
 
-    --gray-0: #141414;
-    --gray-1: #282828;
-    --gray-2: #333333;
-    --gray-3: #454545;
-    --gray-4: #666666;
-    --gray-5: #888888;
-    --gray-6: #ababab;
-    
-    --white: #ffffff;
+  --gray-0: #141414;
+  --gray-1: #282828;
+  --gray-2: #333333;
+  --gray-3: #454545;
+  --gray-4: #666666;
+  --gray-5: #888888;
+  --gray-6: #ababab;
 
-    --primary: #9754be;
-    --primary-light: #9e63c0;
-    --primary-dark: #5b3670;
+  --white: #ffffff;
+
+  --primary: #9754be;
+  --primary-light: #9e63c0;
+  --primary-dark: #5b3670;
+
+  --danger: #d44013;
 }
