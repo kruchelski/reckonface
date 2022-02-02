@@ -18,6 +18,7 @@ function App() {
   const [imageUrl, setImageUrl] = useState('');
   const [boxes, setBoxes] = useState([]);
   const [route, setRoute] = useState('signin');
+  const [isSigned, setIsSigned] = useState(false);
 
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#image');
@@ -63,14 +64,14 @@ function App() {
   };
 
   const handleRouteChange = (event, route) => {
-    console.log(event);
+    setIsSigned(route === 'home');
     setRoute(route);
   };
 
   return (
     <div className="App">
       <Particles options={particlesOptions} className="particles" />
-      <Navigation onRouteChange={handleRouteChange} />
+      <Navigation onRouteChange={handleRouteChange} isSigned={isSigned} />
       {route === 'signin' && <SignIn onRouteChange={handleRouteChange} />}
       {route === 'register' && <Register onRouteChange={handleRouteChange} />}
       {route === 'home' && (

@@ -74,7 +74,7 @@ const SignIn = ({ onRouteChange }) => {
         <fieldset>
           <legend className="sign__title">Sign In</legend>
           <div className="sign__input-container">
-            <label className="sign__label" for="email">
+            <label className="sign__label" htmlFor="email">
               Email
             </label>
             <input
@@ -90,7 +90,7 @@ const SignIn = ({ onRouteChange }) => {
             <span className="sign__error">{emailError}</span>
           </div>
           <div className="sign__input-container">
-            <label className="sign__label" for="password">
+            <label className="sign__label" htmlFor="password">
               Password
             </label>
             <input

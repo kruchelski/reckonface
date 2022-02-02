@@ -98,7 +98,7 @@ const Register = ({ onRouteChange }) => {
         <fieldset>
           <legend className="sign__title">Register</legend>
           <div className="sign__input-container">
-            <label className="sign__label" for="name">
+            <label className="sign__label" htmlFor="name">
               Name
             </label>
             <input
@@ -114,7 +114,7 @@ const Register = ({ onRouteChange }) => {
             <span className="sign__error">{nameError}</span>
           </div>
           <div className="sign__input-container">
-            <label className="sign__label" for="email">
+            <label className="sign__label" htmlFor="email">
               Email
             </label>
             <input
@@ -130,7 +130,7 @@ const Register = ({ onRouteChange }) => {
             <span className="sign__error">{emailError}</span>
           </div>
           <div className="sign__input-container">
-            <label className="sign__label" for="password">
+            <label className="sign__label" htmlFor="password">
               Password
             </label>
             <input
