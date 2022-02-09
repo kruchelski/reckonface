@@ -16,6 +16,8 @@
   "author": "Cassiano Kruchelski Vidal",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "clarifai": "^2.9.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.2"
   },
