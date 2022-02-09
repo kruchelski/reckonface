@@ -1,11 +1,11 @@
 const signIn = async (req, res) => {
-  // TODO: Implement logic
-  res.send('[AuthRouter] signIn');
+  const { email, password } = req.body;
+  res.json({ email, password });
 };
 
 const register = async (req, res) => {
-  // TODO: Implement logic
-  res.send('[AuthRouter] register');
+  const { username, email, password } = req.body;
+  res.json({ username, email, password });
 };
 
 export { signIn, register };
