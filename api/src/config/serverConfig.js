@@ -22,7 +22,6 @@ class Server {
   init() {
     this.app.listen(port, () => {
       console.log(`Server is running in port ${port}`);
-      console.log(this.app._router);
     });
   }
 }

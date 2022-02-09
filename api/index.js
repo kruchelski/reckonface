@@ -1,6 +1,12 @@
 import { Server } from './src/config/index.js';
+import routes from './src/routes/index.js';
 
 const server = new Server();
+
+routes.forEach((routeObject) => {
+  server.registerRoute(routeObject.route, routeObject.router);
+});
+
 server.init();
 
 /**
