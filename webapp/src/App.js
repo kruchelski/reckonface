@@ -7,7 +7,7 @@ import {
   SignIn,
   Register,
 } from './components';
-import * as clarifaiService from './services/clarifaiService';
+import * as httpService from './services/httpService';
 import particlesOptions from './configs/particlesConfig';
 import { useState } from 'react';
 import Particles from 'react-tsparticles';
@@ -54,11 +54,11 @@ function App() {
     setImageUrl(input);
     setBoxes([]);
     try {
-      const res = await clarifaiService.detectFace(input);
+      const res = await httpService.detectFace(input);
       const boxes = calculateFaceLocation(res);
       setBoxes(boxes);
     } catch (error) {
-      console.log('Deu errado');
+      console.log('Error');
       console.log(error);
     }
   };
