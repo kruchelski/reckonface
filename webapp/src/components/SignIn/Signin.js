@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { signIn } from '../../services/httpService';
 import './style.css';
 
 const SignIn = ({ onRouteChange }) => {
@@ -55,7 +56,7 @@ const SignIn = ({ onRouteChange }) => {
     setPasswordError(passwordError);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmited(true);
     setEmailError('');
@@ -65,7 +66,14 @@ const SignIn = ({ onRouteChange }) => {
     const passwordError = validatePassword();
     setPasswordError(passwordError);
     if (emailError || passwordError) return;
-    onRouteChange(event.target, 'home');
+    try {
+      const res = await signIn({ email, password });
+      console.log(res);
+      onRouteChange(event.target, 'home');
+    } catch (err) {
+      const msg = err.message || err.error || 'Unexpected error signing in';
+      console.log(msg);
+    }
   };
 
   return (

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { register } from '../../services/httpService';
 import './style.css';
 
 const Register = ({ onRouteChange }) => {
@@ -76,7 +77,7 @@ const Register = ({ onRouteChange }) => {
     setPasswordError(passwordError);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     setSubmited(true);
     setNameError('');
@@ -89,7 +90,14 @@ const Register = ({ onRouteChange }) => {
     const passwordError = validatePassword();
     setPasswordError(passwordError);
     if (nameError || emailError || passwordError) return;
-    onRouteChange(event.target, 'home');
+    try {
+      const res = await register({ name, email, password });
+      console.log(res);
+      onRouteChange(event.target, 'home');
+    } catch (err) {
+      const msg = err.message || err.error || 'Unexpected error signing in';
+      console.log(msg);
+    }
   };
 
   return (
