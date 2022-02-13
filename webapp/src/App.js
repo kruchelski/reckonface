@@ -7,7 +7,7 @@ import {
   SignIn,
   Register,
 } from './components';
-import * as httpService from './services/httpService';
+import { detectFace, updateImageCount } from './services/httpService';
 import particlesOptions from './configs/particlesConfig';
 import { useState } from 'react';
 import Particles from 'react-tsparticles';
@@ -19,6 +19,7 @@ function App() {
   const [boxes, setBoxes] = useState([]);
   const [route, setRoute] = useState('signin');
   const [isSigned, setIsSigned] = useState(false);
+  const [user, setUser] = useState({});
 
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#image');
@@ -45,6 +46,19 @@ function App() {
     return boxes;
   };
 
+  const checkResponse = (response) => {
+    if (
+      !response ||
+      !response.outputs ||
+      !response.outputs[0] ||
+      !response.outputs[0].data ||
+      !response.outputs[0].data.regions
+    ) {
+      return false;
+    }
+    return true;
+  };
+
   const handleInputChange = (value) => {
     setInput(value);
   };
@@ -54,18 +68,22 @@ function App() {
     setImageUrl(input);
     setBoxes([]);
     try {
-      const res = await httpService.detectFace(input);
-      const boxes = calculateFaceLocation(res);
+      const detectFacerResponse = await detectFace(input);
+      if (!checkResponse(detectFacerResponse)) return;
+      const boxes = calculateFaceLocation(detectFacerResponse);
       setBoxes(boxes);
+      const updateUserImageCountResponse = await updateImageCount('123');
+      console.log(updateUserImageCountResponse);
     } catch (error) {
       console.log('Error');
       console.log(error);
     }
   };
 
-  const handleRouteChange = (event, route) => {
+  const handleRouteChange = (event, route, loggedUser = {}) => {
     setIsSigned(route === 'home');
     setRoute(route);
+    if (loggedUser.id) setUser(loggedUser);
   };
 
   return (
@@ -77,7 +95,7 @@ function App() {
       {route === 'home' && (
         <>
           <Logo />
-          <Rank />
+          <Rank user={user} />
           <ImageLinkForm
             onInputChange={handleInputChange}
             onButtonSubmit={handleSubmit}

@@ -22,4 +22,10 @@ const detectFace = async (imgUrl) => {
   return response.data;
 };
 
-export { register, signIn, detectFace };
+const updateImageCount = async (userId) => {
+  const url = `/user/${userId}/image`;
+  const response = await http.patch(url);
+  return response.data;
+};
+
+export { register, signIn, detectFace, updateImageCount };

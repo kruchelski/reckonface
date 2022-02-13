@@ -4,6 +4,6 @@ import { UserController } from '../controllers/index.js';
 const router = express.Router();
 
 router.get('/:userId', UserController.getUser);
-router.put('/:userId/image', UserController.addImageCountToUser);
+router.patch('/:userId/image', UserController.addImageCountToUser);
 
 export default router;

@@ -92,8 +92,7 @@ const Register = ({ onRouteChange }) => {
     if (nameError || emailError || passwordError) return;
     try {
       const res = await register({ name, email, password });
-      console.log(res);
-      onRouteChange(event.target, 'home');
+      onRouteChange(event.target, 'home', res.user);
     } catch (err) {
       const msg = err.message || err.error || 'Unexpected error signing in';
       console.log(msg);
