@@ -1,5 +1,5 @@
 import { dbConnection } from '../config/index.js';
-import { AuthHelper } from '../helpers/index.js';
+import { AuthHelper, TokenHelper } from '../helpers/index.js';
 
 const signIn = async (req, res) => {
   const db = dbConnection();
@@ -38,11 +38,13 @@ const register = async (req, res) => {
       email,
       hash,
     };
-    const response = await trx('users').returning('*').insert(user);
+    const users = await trx('users').returning('*').insert(user);
     await trx('logins').insert(loginUser);
     await trx.commit();
-    console.log(response);
-    res.json({ msg: 'User inserted', user: response[0] });
+    const userToken = TokenHelper.generateToken(users[0]);
+    console.log(users);
+    console.log(userToken);
+    res.json({ msg: 'User inserted', user: users[0], token: userToken });
   } catch (err) {
     await trx.rollback();
     const msg = err.message || err.error || 'Unexpected error while register';
