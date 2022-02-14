@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { signIn } from '../../services/httpService';
+import { setItem } from '../../utils/storage';
 import './style.css';
 
-const SignIn = ({ onRouteChange }) => {
+const SignIn = ({ onRouteChange, setUser }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -68,7 +69,9 @@ const SignIn = ({ onRouteChange }) => {
     if (emailError || passwordError) return;
     try {
       const res = await signIn({ email, password });
-      console.log(res);
+      setItem('user', res.user);
+      setItem('token', res.token);
+      setUser(res.user);
       onRouteChange(event.target, 'home');
     } catch (err) {
       const msg = err.message || err.error || 'Unexpected error signing in';

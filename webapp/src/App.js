@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import {
   ImageLinkForm,
   Logo,
@@ -7,10 +8,15 @@ import {
   SignIn,
   Register,
 } from './components';
-import { detectFace, updateImageCount } from './services/httpService';
+import {
+  detectFace,
+  updateImageCount,
+  getUserData,
+} from './services/httpService';
+import { setDefaultHeaders, removeDefaultHeaders } from './clients/httpClient';
 import particlesOptions from './configs/particlesConfig';
-import { useState } from 'react';
 import Particles from 'react-tsparticles';
+import { getItem, clearStorage } from './utils/storage';
 import './App.css';
 
 function App() {
@@ -20,6 +26,22 @@ function App() {
   const [route, setRoute] = useState('signin');
   const [isSigned, setIsSigned] = useState(false);
   const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getUserState();
+  }, []);
+
+  const getUserState = async () => {
+    const user = getItem('user');
+    const token = getItem('token');
+    if (!user) return;
+    if (token) setDefaultHeaders('Authorization', token);
+    const parsedUser = JSON.parse(user);
+    const res = await getUserData(parsedUser.id);
+    setUser(res);
+    setIsSigned(parsedUser && parsedUser.id);
+    setRoute('home');
+  };
 
   const calculateFaceLocation = (data) => {
     const image = document.querySelector('#image');
@@ -69,29 +91,48 @@ function App() {
     setBoxes([]);
     try {
       const detectFacerResponse = await detectFace(input);
+      console.log('eita');
+      console.log(detectFacerResponse);
       if (!checkResponse(detectFacerResponse)) return;
       const boxes = calculateFaceLocation(detectFacerResponse);
       setBoxes(boxes);
-      const updateUserImageCountResponse = await updateImageCount('123');
-      console.log(updateUserImageCountResponse);
-    } catch (error) {
-      console.log('Error');
-      console.log(error);
+      const res = await updateImageCount(user.id);
+      setUser(res.user);
+    } catch (err) {
+      const msg =
+        err.message || err.error || 'Unexpected error while detecting face';
+      console.log(msg);
     }
   };
 
-  const handleRouteChange = (event, route, loggedUser = {}) => {
-    setIsSigned(route === 'home');
+  const handleRouteChange = (event, route) => {
+    setIsSigned(route === 'home' && user && user.id === undefined);
     setRoute(route);
-    if (loggedUser.id) setUser(loggedUser);
+  };
+
+  const signOut = () => {
+    clearStorage();
+    removeDefaultHeaders('Authorization');
+    setUser({});
+    setBoxes([]);
+    setImageUrl('');
+    setInput('');
   };
 
   return (
     <div className="App">
       <Particles options={particlesOptions} className="particles" />
-      <Navigation onRouteChange={handleRouteChange} isSigned={isSigned} />
-      {route === 'signin' && <SignIn onRouteChange={handleRouteChange} />}
-      {route === 'register' && <Register onRouteChange={handleRouteChange} />}
+      <Navigation
+        onRouteChange={handleRouteChange}
+        isSigned={isSigned}
+        signOut={signOut}
+      />
+      {route === 'signin' && (
+        <SignIn onRouteChange={handleRouteChange} setUser={setUser} />
+      )}
+      {route === 'register' && (
+        <Register onRouteChange={handleRouteChange} setUser={setUser} />
+      )}
       {route === 'home' && (
         <>
           <Logo />

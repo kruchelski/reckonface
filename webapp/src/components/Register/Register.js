@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { register } from '../../services/httpService';
+import { setItem } from '../../utils/storage';
 import './style.css';
 
-const Register = ({ onRouteChange }) => {
+const Register = ({ onRouteChange, setUser }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -92,6 +93,9 @@ const Register = ({ onRouteChange }) => {
     if (nameError || emailError || passwordError) return;
     try {
       const res = await register({ name, email, password });
+      setItem('user', res.user);
+      setItem('token', res.token);
+      setUser(res.user);
       onRouteChange(event.target, 'home', res.user);
     } catch (err) {
       const msg = err.message || err.error || 'Unexpected error signing in';
