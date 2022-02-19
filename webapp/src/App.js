@@ -91,8 +91,6 @@ function App() {
     setBoxes([]);
     try {
       const detectFacerResponse = await detectFace(input);
-      console.log('eita');
-      console.log(detectFacerResponse);
       if (!checkResponse(detectFacerResponse)) return;
       const boxes = calculateFaceLocation(detectFacerResponse);
       setBoxes(boxes);
