@@ -40,7 +40,7 @@ In the same repo there are the `webapp` and the `api`. The `webapp` is the front
 - Go to `webapp` directory (`cd webapp`)
 - Create a copy of the `.env.example` file, remove the suffix `.example` and fill the data in the file
 - Install dependencies (`npm install`)
-- Run project (`npm start`)
+- Run project (`npm run start:dev`)
 - Open app in browser (usually the app will be served in port 3000)
 
 > The browser usally opens automatically after the `npm start` command
@@ -53,7 +53,7 @@ To summarize the commands:
 cd webapp
 cp .env.example .env # Then fill the file with the information
 npm install
-npm start
+npm run start:dev
 
 # Then go to the browser at http://localhost:3000 (the port may vary, see the log in terminal)
 ```
