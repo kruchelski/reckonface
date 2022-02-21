@@ -1,8 +1,8 @@
-import * as bcrypt from 'bcrypt';
+import * as bcryptjs from 'bcryptjs';
 
 const hashPassword = async (password) => {
   try {
-    const hash = await bcrypt.hash(password, 10);
+    const hash = await bcryptjs.default.hash(password, 10);
     return hash;
   } catch (err) {
     const msg = err.message || err.error || 'Unexpected error hashing password';
@@ -13,7 +13,7 @@ const hashPassword = async (password) => {
 
 const compareHash = async (hash, password) => {
   try {
-    const result = await bcrypt.compare(password, hash);
+    const result = await bcryptjs.default.compare(password, hash);
     return result;
   } catch (err) {
     const msg = err.message || err.error || 'Unexpected error hashing password';
