@@ -9,19 +9,31 @@ const user = process.env.DB_USER || null;
 const password = process.env.DB_PASSWORD || '';
 const database = process.env.DB_NAME || 'reckonface';
 const client = process.env.DB_CLIENT || 'pg';
+const databaseUrl = process.env.DATABASE_URL;
 
 const dbConnection = () => {
   try {
     if (!user) throw new Error('No user provided for the database');
-    const db = knex.default({
-      client,
-      connection: {
+    let options;
+
+    if (databaseUrl) {
+      options = {
+        connectionString: databaseUrl,
+        ssl: true,
+      };
+    } else {
+      options = {
         host,
         port,
         user,
         password,
         database,
-      },
+      };
+    }
+
+    const db = knex.default({
+      client,
+      connection: options,
     });
     return db;
   } catch (err) {
