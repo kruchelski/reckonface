@@ -2,9 +2,6 @@
   "name": "reckonface-monorepo",
   "version": "1.0.0",
   "description": "Mono repo for the application reckonface containing the webapp and the api",
-  "scripts": {
-    "start": "node api/index.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/kruchelski/reckonface.git"
