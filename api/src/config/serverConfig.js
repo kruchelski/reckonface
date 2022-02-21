@@ -4,7 +4,7 @@ import { CorsMiddleware } from '../middlewares/index.js';
 
 dotenv.config();
 
-const port = process.env.API_PORT || 3002;
+const port = process.env.PORT || 3002;
 
 class Server {
   constructor() {
