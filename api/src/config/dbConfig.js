@@ -13,15 +13,17 @@ const databaseUrl = process.env.DATABASE_URL;
 
 const dbConnection = () => {
   try {
-    if (!user) throw new Error('No user provided for the database');
     let options;
 
     if (databaseUrl) {
       options = {
         connectionString: databaseUrl,
-        ssl: true,
+        ssl: {
+          rejectUnauthorized: false,
+        },
       };
     } else {
+      if (!user) throw new Error('No user provided for the database');
       options = {
         host,
         port,
